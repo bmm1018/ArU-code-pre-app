@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>アプリ改修モック - プレビュー</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- ヘッダー -->
+        <header class="header">
+            <h1>ArU-code蔵スターシステムR</h1>
+        </header>
+
+        <!-- iPhoneプレビューエリア -->
+        <div class="preview-area">
+            <div class="phone-frame">
+                <!-- ステータスバー -->
+                <div class="status-bar">
+                    <span class="time">9:41</span>
+                    <div class="status-icons">
+                        <span>📶 📶 🔋</span>
+                    </div>
+                </div>
+
+                <!-- アプリコンテンツ -->
+                <div class="phone-content" id="phoneContent">
+                    <!-- IMG_1: ログイン画面 -->
+                    <div class="screen active" id="screen-IMG_1" data-screen="IMG_1">
+                        <div class="login-screen">
+                            <div class="settings-icon">⚙️</div>
+
+                            <div class="login-content">
+                                <h1 class="app-title">ArU-code蔵スターシステムR</h1>
+                                <p class="version">Ver. 1.0.4</p>
+
+                                <div class="login-form">
+                                    <input type="text" class="input-field" placeholder="" value="9999999" maxlength="7">
+                                    <input type="password" class="input-field" placeholder="">
+
+                                    <button class="btn-primary btn-login" onclick="navigateTo('IMG_2')">
+                                        <span>ログイン</span>
+                                        <span class="wifi-icon">📶</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- IMG_2: メニュー選択画面 -->
+                    <div class="screen" id="screen-IMG_2" data-screen="IMG_2">
+                        <div class="menu-screen">
+                            <button class="back-btn" onclick="goBack()">◀</button>
+
+                            <!-- モード切り替えスイッチ（画面右上） -->
+                            <div class="mode-switch">
+                                <button class="mode-btn active" data-mode="retail" onclick="switchMode('retail')">量販</button>
+                                <button class="mode-btn" data-mode="dc" onclick="switchMode('dc')">DC</button>
+                            </div>
+
+                            <div class="screen-header">
+                                <h2 class="screen-title">メニュー選択</h2>
+                            </div>
+
+                            <div class="menu-buttons">
+                                <button class="menu-btn" onclick="navigateTo('IMG_3')">
+                                    仕分け管理
+                                </button>
+                                <button class="menu-btn" onclick="navigateTo('IMG_6')">
+                                    送り状管理
+                                </button>
+                            </div>
+
+                            <div class="footer-icons">
+                                <span class="footer-icon">⚙️</span>
+                                <span class="footer-icon">ℹ️</span>
+                                <span class="footer-icon">👤</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- IMG_3: 機能選択画面（仕分け管理） -->
+                    <div class="screen" id="screen-IMG_3" data-screen="IMG_3">
+                        <div class="menu-screen">
+                            <button class="back-btn" onclick="goBack()">◀</button>
+
+                            <div class="screen-header">
+                                <h2 class="screen-title">機能選択（仕分け管理）</h2>
+                            </div>
+
+                            <div class="menu-buttons">
+                                <button class="menu-btn" onclick="navigateTo('IMG_4')">
+                                    仕分け登録
+                                </button>
+                                <button class="menu-btn" onclick="navigateTo('IMG_4')">
+                                    個口検索
+                                </button>
+                            </div>
+
+                            <div class="footer-icons">
+                                <span class="footer-icon">⚙️</span>
+                                <span class="footer-icon">ℹ️</span>
+                                <span class="footer-icon">👤</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- IMG_6: 機能選択画面（送り状管理） -->
+                    <div class="screen" id="screen-IMG_6" data-screen="IMG_6">
+                        <div class="menu-screen">
+                            <button class="back-btn" onclick="goBack()">◀</button>
+
+                            <div class="screen-header">
+                                <h2 class="screen-title">機能選択（送り状管理）</h2>
+                            </div>
+
+                            <div class="menu-buttons">
+                                <button class="menu-btn" onclick="navigateTo('IMG_4')">
+                                    送り状仕分け
+                                </button>
+                            </div>
+
+                            <div class="footer-icons">
+                                <span class="footer-icon">⚙️</span>
+                                <span class="footer-icon">ℹ️</span>
+                                <span class="footer-icon">👤</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- IMG_4: 検索条件画面 -->
+                    <div class="screen" id="screen-IMG_4" data-screen="IMG_4">
+                        <div class="search-screen">
+                            <button class="back-btn" onclick="goBack()">◀</button>
+
+                            <div class="screen-header">
+                                <h2 class="screen-title">仕分け登録（検索条件）</h2>
+                            </div>
+
+                            <div class="search-content">
+                                <div class="search-basic">
+                                    <!-- 共通：出荷日 -->
+                                    <div class="form-group">
+                                        <label class="form-label">出荷日</label>
+                                        <input type="text" class="form-input" value="26/02/16">
+                                    </div>
+                                </div>
+
+                                <div class="search-conditions">
+                                    <div class="condition-section">
+                                        <div class="section-header">【検索条件】</div>
+
+                                        <!-- DCモードのみ：運送便種別 -->
+                                        <div class="checkbox-group mode-dc" style="display: none;">
+                                            <label class="checkbox-label-row">
+                                                <span>運送便種別</span>
+                                                <div class="checkbox-options">
+                                                    <label class="checkbox-label">
+                                                        <input type="checkbox" checked> フィット便
+                                                    </label>
+                                                    <label class="checkbox-label">
+                                                        <input type="checkbox" checked> 路線便
+                                                    </label>
+                                                    <label class="checkbox-label">
+                                                        <input type="checkbox" checked> 宅配便
+                                                    </label>
+                                                </div>
+                                            </label>
+                                        </div>
+
+                                        <!-- 共通：温度帯 -->
+                                        <div class="checkbox-group">
+                                            <label class="checkbox-label-row">
+                                                <span>温度帯</span>
+                                                <div class="checkbox-options">
+                                                    <label class="checkbox-label">
+                                                        <input type="checkbox" checked> 常温
+                                                    </label>
+                                                    <label class="checkbox-label">
+                                                        <input type="checkbox" checked> チルド
+                                                    </label>
+                                                    <label class="checkbox-label">
+                                                        <input type="checkbox" checked> 冷凍
+                                                    </label>
+                                                </div>
+                                            </label>
+                                        </div>
+
+                                        <!-- 共通：荷姿 -->
+                                        <div class="checkbox-group">
+                                            <label class="checkbox-label-row">
+                                                <span>荷姿</span>
+                                                <div class="checkbox-options">
+                                                    <label class="checkbox-label">
+                                                        <input type="checkbox" checked> ケース
+                                                    </label>
+                                                    <label class="checkbox-label">
+                                                        <input type="checkbox" checked> バラ
+                                                    </label>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <button class="btn-primary btn-search" onclick="searchCondition()">
+                                        <span>検索</span>
+                                        <span class="wifi-icon">📶</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- IMG_RETAIL_CLIENT: 取引先一覧（量販モード） -->
+                    <div class="screen" id="screen-IMG_RETAIL_CLIENT" data-screen="IMG_RETAIL_CLIENT">
+                        <div class="list-screen">
+                            <button class="back-btn" onclick="goBack()">◀</button>
+
+                            <div class="screen-header">
+                                <h2 class="screen-title">取引先一覧</h2>
+                            </div>
+
+                            <div class="table-container">
+                                <table class="data-table clickable-table">
+                                    <thead>
+                                        <tr class="table-header-row">
+                                            <th class="table-header-cell">取引先名</th>
+                                            <th class="table-header-cell">温度帯</th>
+                                            <th class="table-header-cell">個口数</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="table-row" onclick="selectClient('イオンリテール株式会社')">
+                                            <td class="table-cell">イオンリテール株式会社</td>
+                                            <td class="table-cell">常温/チルド</td>
+                                            <td class="table-cell">50</td>
+                                        </tr>
+                                        <tr class="table-row" onclick="selectClient('イトーヨーカ堂')">
+                                            <td class="table-cell">イトーヨーカ堂</td>
+                                            <td class="table-cell">常温/冷凍</td>
+                                            <td class="table-cell">35</td>
+                                        </tr>
+                                        <tr class="table-row" onclick="selectClient('西友')">
+                                            <td class="table-cell">西友</td>
+                                            <td class="table-cell">常温/チルド</td>
+                                            <td class="table-cell">42</td>
+                                        </tr>
+                                        <tr class="table-row" onclick="selectClient('ライフコーポレーション')">
+                                            <td class="table-cell">ライフコーポレーション</td>
+                                            <td class="table-cell">常温</td>
+                                            <td class="table-cell">28</td>
+                                        </tr>
+                                        <tr class="table-row" onclick="selectClient('マルエツ')">
+                                            <td class="table-cell">マルエツ</td>
+                                            <td class="table-cell">チルド/冷凍</td>
+                                            <td class="table-cell">38</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- IMG_RETAIL_DELIVERY: 配送先一覧（量販モード） -->
+                    <div class="screen" id="screen-IMG_RETAIL_DELIVERY" data-screen="IMG_RETAIL_DELIVERY">
+                        <div class="list-screen">
+                            <button class="back-btn" onclick="goBack()">◀</button>
+
+                            <div class="screen-header">
+                                <h2 class="screen-title">配送先一覧</h2>
+                            </div>
+
+                            <div class="table-container">
+                                <table class="data-table clickable-table">
+                                    <thead>
+                                        <tr class="table-header-row">
+                                            <th class="table-header-cell">センター名</th>
+                                            <th class="table-header-cell">住所</th>
+                                            <th class="table-header-cell">個口数</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="table-row" onclick="selectDelivery('関東物流センター')">
+                                            <td class="table-cell">関東物流センター</td>
+                                            <td class="table-cell">千葉県千葉市美浜区</td>
+                                            <td class="table-cell">20</td>
+                                        </tr>
+                                        <tr class="table-row" onclick="selectDelivery('東京配送センター')">
+                                            <td class="table-cell">東京配送センター</td>
+                                            <td class="table-cell">東京都江東区</td>
+                                            <td class="table-cell">15</td>
+                                        </tr>
+                                        <tr class="table-row" onclick="selectDelivery('埼玉流通センター')">
+                                            <td class="table-cell">埼玉流通センター</td>
+                                            <td class="table-cell">埼玉県さいたま市</td>
+                                            <td class="table-cell">10</td>
+                                        </tr>
+                                        <tr class="table-row" onclick="selectDelivery('神奈川物流拠点')">
+                                            <td class="table-cell">神奈川物流拠点</td>
+                                            <td class="table-cell">神奈川県横浜市</td>
+                                            <td class="table-cell">5</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- IMG_RETAIL_DEPT: 部門一覧（量販モード・複数選択） -->
+                    <div class="screen" id="screen-IMG_RETAIL_DEPT" data-screen="IMG_RETAIL_DEPT">
+                        <div class="list-screen">
+                            <button class="back-btn" onclick="goBack()">◀</button>
+
+                            <div class="screen-header">
+                                <h2 class="screen-title">部門一覧</h2>
+                            </div>
+
+                            <div class="table-container">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr class="table-header-row">
+                                            <th class="table-header-cell"><input type="checkbox" id="selectAllDept" onclick="toggleAllCheckboxes('dept')"></th>
+                                            <th class="table-header-cell">部門名</th>
+                                            <th class="table-header-cell">温度帯</th>
+                                            <th class="table-header-cell">個口数</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="table-row">
+                                            <td class="table-cell"><input type="checkbox" class="dept-checkbox" onchange="updateStartButton()"></td>
+                                            <td class="table-cell">食品</td>
+                                            <td class="table-cell">常温</td>
+                                            <td class="table-cell">8</td>
+                                        </tr>
+                                        <tr class="table-row">
+                                            <td class="table-cell"><input type="checkbox" class="dept-checkbox" onchange="updateStartButton()"></td>
+                                            <td class="table-cell">生鮮</td>
+                                            <td class="table-cell">チルド</td>
+                                            <td class="table-cell">5</td>
+                                        </tr>
+                                        <tr class="table-row">
+                                            <td class="table-cell"><input type="checkbox" class="dept-checkbox" onchange="updateStartButton()"></td>
+                                            <td class="table-cell">冷凍食品</td>
+                                            <td class="table-cell">冷凍</td>
+                                            <td class="table-cell">3</td>
+                                        </tr>
+                                        <tr class="table-row">
+                                            <td class="table-cell"><input type="checkbox" class="dept-checkbox" onchange="updateStartButton()"></td>
+                                            <td class="table-cell">日配</td>
+                                            <td class="table-cell">チルド</td>
+                                            <td class="table-cell">3</td>
+                                        </tr>
+                                        <tr class="table-row">
+                                            <td class="table-cell"><input type="checkbox" class="dept-checkbox" onchange="updateStartButton()"></td>
+                                            <td class="table-cell">菓子</td>
+                                            <td class="table-cell">常温</td>
+                                            <td class="table-cell">1</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="button-container" id="deptStartButtonContainer" style="display: none;">
+                                <button class="btn-primary btn-start" onclick="startWork()">
+                                    <span>開始</span>
+                                    <span class="wifi-icon">📶</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- IMG_DC_TRANSPORT: 運送便一覧（DCモード） -->
+                    <div class="screen" id="screen-IMG_DC_TRANSPORT" data-screen="IMG_DC_TRANSPORT">
+                        <div class="list-screen">
+                            <button class="back-btn" onclick="goBack()">◀</button>
+
+                            <div class="screen-header">
+                                <h2 class="screen-title">運送便一覧</h2>
+                            </div>
+
+                            <div class="table-container">
+                                <table class="data-table clickable-table">
+                                    <thead>
+                                        <tr class="table-header-row">
+                                            <th class="table-header-cell">運送便名</th>
+                                            <th class="table-header-cell">温度帯</th>
+                                            <th class="table-header-cell">個口数</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="table-row" onclick="selectTransport('カトーレック FIT便')">
+                                            <td class="table-cell">カトーレック FIT便</td>
+                                            <td class="table-cell">常温/チルド/冷凍</td>
+                                            <td class="table-cell">57</td>
+                                        </tr>
+                                        <tr class="table-row" onclick="selectTransport('佐川急便 路線便')">
+                                            <td class="table-cell">佐川急便 路線便</td>
+                                            <td class="table-cell">常温</td>
+                                            <td class="table-cell">42</td>
+                                        </tr>
+                                        <tr class="table-row" onclick="selectTransport('ヤマト運輸 宅急便')">
+                                            <td class="table-cell">ヤマト運輸 宅急便</td>
+                                            <td class="table-cell">常温/冷凍</td>
+                                            <td class="table-cell">38</td>
+                                        </tr>
+                                        <tr class="table-row" onclick="selectTransport('西濃運輸 路線便')">
+                                            <td class="table-cell">西濃運輸 路線便</td>
+                                            <td class="table-cell">常温</td>
+                                            <td class="table-cell">35</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- IMG_DC_DIRECTION: 方面一覧（DCモード・複数選択） -->
+                    <div class="screen" id="screen-IMG_DC_DIRECTION" data-screen="IMG_DC_DIRECTION">
+                        <div class="list-screen">
+                            <button class="back-btn" onclick="goBack()">◀</button>
+
+                            <div class="screen-header">
+                                <h2 class="screen-title">方面一覧</h2>
+                            </div>
+
+                            <div class="table-container">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr class="table-header-row">
+                                            <th class="table-header-cell"><input type="checkbox" id="selectAllDirection" onclick="toggleAllCheckboxes('direction')"></th>
+                                            <th class="table-header-cell">方面名</th>
+                                            <th class="table-header-cell">個口数</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="table-row">
+                                            <td class="table-cell" onclick="event.stopPropagation()"><input type="checkbox" class="direction-checkbox" onchange="updateDirectionButton()"></td>
+                                            <td class="table-cell clickable-cell" onclick="selectDirection('P2')">P 2</td>
+                                            <td class="table-cell">15</td>
+                                        </tr>
+                                        <tr class="table-row">
+                                            <td class="table-cell" onclick="event.stopPropagation()"><input type="checkbox" class="direction-checkbox" onchange="updateDirectionButton()"></td>
+                                            <td class="table-cell clickable-cell" onclick="selectDirection('P4')">P 4</td>
+                                            <td class="table-cell">22</td>
+                                        </tr>
+                                        <tr class="table-row">
+                                            <td class="table-cell" onclick="event.stopPropagation()"><input type="checkbox" class="direction-checkbox" onchange="updateDirectionButton()"></td>
+                                            <td class="table-cell clickable-cell" onclick="selectDirection('P6')">P 6</td>
+                                            <td class="table-cell">12</td>
+                                        </tr>
+                                        <tr class="table-row">
+                                            <td class="table-cell" onclick="event.stopPropagation()"><input type="checkbox" class="direction-checkbox" onchange="updateDirectionButton()"></td>
+                                            <td class="table-cell clickable-cell" onclick="selectDirection('P8')">P 8</td>
+                                            <td class="table-cell">8</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="button-container" id="directionButtonContainer" style="display: none;">
+                                <button class="btn-primary btn-start" onclick="startWork()">
+                                    <span>開始</span>
+                                    <span class="wifi-icon">📶</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- IMG_DC_STORE: 着店CD一覧（DCモード・複数選択） -->
+                    <div class="screen" id="screen-IMG_DC_STORE" data-screen="IMG_DC_STORE">
+                        <div class="list-screen">
+                            <button class="back-btn" onclick="goBack()">◀</button>
+
+                            <div class="screen-header">
+                                <h2 class="screen-title">着店一覧</h2>
+                            </div>
+
+                            <div class="table-container">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr class="table-header-row">
+                                            <th class="table-header-cell"><input type="checkbox" id="selectAllStore" onclick="toggleAllCheckboxes('store')"></th>
+                                            <th class="table-header-cell">着店</th>
+                                            <th class="table-header-cell">温度帯</th>
+                                            <th class="table-header-cell">荷姿</th>
+                                            <th class="table-header-cell">個口数</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="table-row">
+                                            <td class="table-cell"><input type="checkbox" class="store-checkbox" onchange="updateStoreButton()"></td>
+                                            <td class="table-cell">AC02**</td>
+                                            <td class="table-cell">常温/チルド</td>
+                                            <td class="table-cell">ケース/バラ</td>
+                                            <td class="table-cell">6</td>
+                                        </tr>
+                                        <tr class="table-row">
+                                            <td class="table-cell"><input type="checkbox" class="store-checkbox" onchange="updateStoreButton()"></td>
+                                            <td class="table-cell">AC03**</td>
+                                            <td class="table-cell">常温/チルド</td>
+                                            <td class="table-cell">ケース/バラ</td>
+                                            <td class="table-cell">5</td>
+                                        </tr>
+                                        <tr class="table-row">
+                                            <td class="table-cell"><input type="checkbox" class="store-checkbox" onchange="updateStoreButton()"></td>
+                                            <td class="table-cell">AC04**</td>
+                                            <td class="table-cell">常温/冷凍</td>
+                                            <td class="table-cell">ケース</td>
+                                            <td class="table-cell">2</td>
+                                        </tr>
+                                        <tr class="table-row">
+                                            <td class="table-cell"><input type="checkbox" class="store-checkbox" onchange="updateStoreButton()"></td>
+                                            <td class="table-cell">AE01**</td>
+                                            <td class="table-cell">チルド</td>
+                                            <td class="table-cell">バラ</td>
+                                            <td class="table-cell">1</td>
+                                        </tr>
+                                        <tr class="table-row">
+                                            <td class="table-cell"><input type="checkbox" class="store-checkbox" onchange="updateStoreButton()"></td>
+                                            <td class="table-cell">AE02**</td>
+                                            <td class="table-cell">常温/チルド</td>
+                                            <td class="table-cell">ケース/バラ</td>
+                                            <td class="table-cell">1</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="button-container" id="storeStartButtonContainer" style="display: none;">
+                                <button class="btn-primary btn-start" onclick="startWork()">
+                                    <span>開始</span>
+                                    <span class="wifi-icon">📶</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- IMG_5: 選択開始画面 -->
+                    <div class="screen" id="screen-IMG_5" data-screen="IMG_5">
+                        <div class="list-screen">
+                            <button class="back-btn" onclick="goBack()">◀</button>
+
+                            <div class="screen-header">
+                                <h2 class="screen-title">仕分け登録（選択開始）</h2>
+                            </div>
+
+                            <div class="table-container">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr class="table-header-row">
+                                            <th class="table-header-cell"><input type="checkbox"></th>
+                                            <th class="table-header-cell">運送便</th>
+                                            <th class="table-header-cell">着店</th>
+                                            <th class="table-header-cell">温度帯</th>
+                                            <th class="table-header-cell">荷姿</th>
+                                            <th class="table-header-cell">出荷</th>
+                                            <th class="table-header-cell">納品</th>
+                                            <th class="table-header-cell">方面</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="table-row">
+                                            <td class="table-cell"><input type="checkbox"></td>
+                                            <td class="table-cell">156：カトーレック FIT便</td>
+                                            <td class="table-cell">AC02**</td>
+                                            <td class="table-cell">常温/チルド/...</td>
+                                            <td class="table-cell">ケース/バラ</td>
+                                            <td class="table-cell">02/13</td>
+                                            <td class="table-cell">02/14</td>
+                                            <td class="table-cell">P4：P 4</td>
+                                        </tr>
+                                        <tr class="table-row">
+                                            <td class="table-cell"><input type="checkbox"></td>
+                                            <td class="table-cell">156：カトーレック FIT便</td>
+                                            <td class="table-cell">AC03**</td>
+                                            <td class="table-cell">常温/チルド/...</td>
+                                            <td class="table-cell">ケース/バラ</td>
+                                            <td class="table-cell">02/13</td>
+                                            <td class="table-cell">02/14</td>
+                                            <td class="table-cell">P4：P 4</td>
+                                        </tr>
+                                        <tr class="table-row">
+                                            <td class="table-cell"><input type="checkbox"></td>
+                                            <td class="table-cell">156：カトーレック FIT便</td>
+                                            <td class="table-cell">AC04**</td>
+                                            <td class="table-cell">常温/チルド/...</td>
+                                            <td class="table-cell">ケース/バラ</td>
+                                            <td class="table-cell">02/13</td>
+                                            <td class="table-cell">02/14</td>
+                                            <td class="table-cell">P4：P 4</td>
+                                        </tr>
+                                        <tr class="table-row">
+                                            <td class="table-cell"><input type="checkbox"></td>
+                                            <td class="table-cell">156：カトーレック FIT便</td>
+                                            <td class="table-cell">AE01**</td>
+                                            <td class="table-cell">常温/チルド/...</td>
+                                            <td class="table-cell">ケース/バラ</td>
+                                            <td class="table-cell">02/13</td>
+                                            <td class="table-cell">02/14</td>
+                                            <td class="table-cell">P2：P 2</td>
+                                        </tr>
+                                        <tr class="table-row">
+                                            <td class="table-cell"><input type="checkbox"></td>
+                                            <td class="table-cell">156：カトーレック FIT便</td>
+                                            <td class="table-cell">AE02**</td>
+                                            <td class="table-cell">常温/チルド/...</td>
+                                            <td class="table-cell">ケース/バラ</td>
+                                            <td class="table-cell">02/13</td>
+                                            <td class="table-cell">02/14</td>
+                                            <td class="table-cell">P2：P 2</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="button-container">
+                                <button class="btn-primary btn-start" onclick="navigateTo('IMG_7')">
+                                    <span>開始</span>
+                                    <span class="wifi-icon">📶</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- IMG_7: 仕分け登録実行画面 -->
+                    <div class="screen" id="screen-IMG_7" data-screen="IMG_7">
+                        <div class="work-screen">
+                            <button class="back-btn" onclick="goBack()">◀</button>
+
+                            <div class="screen-header">
+                                <h2 class="screen-title">仕分け登録</h2>
+                                <button class="delete-btn">🗑️</button>
+                            </div>
+
+                            <div class="work-content">
+                                <div class="work-info">
+                                    <div class="info-item">
+                                        <span class="info-label">開始時仕分数（済/総）</span>
+                                        <span class="info-value large">0 / 30</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">開始後仕分数</span>
+                                        <span class="info-value large">0</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">残数</span>
+                                        <span class="info-value large">30</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">新規アラート</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">対象外アラート</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">着店非表示</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">対象外</span>
+                                        <span class="info-value">なし</span>
+                                    </div>
+                                </div>
+
+                                <button class="btn-primary btn-complete">
+                                    <span>完了</span>
+                                    <span class="wifi-icon">📶</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                </div>
+
+            </div>
+        </div>
+
+        
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

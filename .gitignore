@@ -1,0 +1,25 @@
+# 画像ファイル（実際のプロジェクト画像は除外）
+images/current/*
+images/updated/*
+
+# ただし.gitkeepは残す
+!images/current/.gitkeep
+!images/updated/.gitkeep
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# エディタ
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ログ
+*.log
+npm-debug.log*
