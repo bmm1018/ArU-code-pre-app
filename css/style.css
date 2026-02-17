@@ -316,7 +316,7 @@ body {
 }
 
 .screen-title {
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 600;
     color: #333;
     margin: 0;
@@ -446,6 +446,11 @@ body[data-mode="dc"] .mode-dc {
     display: flex;
     flex-direction: column;
     overflow: auto;
+}
+
+.search-screen .screen-title {
+    font-size: 18px;
+    max-width: calc(100% - 180px); /* スイッチボタンと戻るボタンのスペースを確保 */
 }
 
 .search-content {
